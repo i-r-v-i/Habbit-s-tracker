@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Comfortaa", sans-serif;
+    background-color: #F3F6FD;
+  }
+
+  .app {
+    max-width: 1012px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(200px, 350px) 1fr;
+  }
+
+  .panel {
+    background-color: #FBFAFF;
+  }
