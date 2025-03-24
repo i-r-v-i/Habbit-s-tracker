@@ -135,7 +135,7 @@ h1 {
   width: 80%;
   height: 5px;
   border-radius: 4px;
-  background: #5051F9;
+  background: #5051f9;
 }
 
 .habbit {
@@ -143,18 +143,19 @@ h1 {
   border-radius: 10px;
   display: flex;
   align-items: center;
+  margin-bottom: 12px;
 }
 
 .habbit__day {
-  background: #FBFAFF;
-border-radius: 10px 0 0 10px;
-font-weight: 500;
-font-size: 14px;
-line-height: 100%;
-letter-spacing: 0%;
-border-right: 1px solid #E7EBFB;
-padding: 20px 40px;
-
+  background: #fbfaff;
+  border-radius: 10px 0 0 10px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  border-right: 1px solid #e7ebfb;
+  padding: 20px 40px;
+  min-width: 140px;
 }
 
 .habbit__comment {
@@ -167,14 +168,61 @@ padding: 20px 40px;
 
 .habbit__bin {
   margin-left: auto;
- margin-right: 13px;
- background: none;
- cursor: pointer;
- border: none;
- border-radius: 5px;
- padding: 2px;
+  margin-right: 13px;
+  background: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 2px;
 }
 
 .habbit__bin:hover {
   background: #eff2ff;
+}
+
+input {
+  border: 1px solid #e7ebfb;
+  border-radius: 9px;
+  padding: 12px 20px;
+  font-family: Comfortaa;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  flex: 1;
+}
+input::placeholder {
+  color: #8899a8;
+}
+.habbit__form {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  padding: 0 10px 0 20px;
+  position: relative;
+}
+.habbit__input {
+  padding-left: 45px;
+}
+.icon {
+  position: absolute;
+  top: 10px;
+  left: 45px;
+}
+
+.habbit__done{
+  background: #edecfe;
+  border: none;
+  border-radius: 9px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 100%;
+  color: #5051F9;
+  padding: 14px 30px;
+  cursor: pointer;
+  font-family: Comfortaa;
+}
+
+.habbit__done:hover {
+  background: #edecfe;
 }
