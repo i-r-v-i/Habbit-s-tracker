@@ -15,13 +15,52 @@
   </head>
   <body>
     <div class="app">
-        <div class="panel">
-            <image class="logo" src="./assets/svg/Logomark.svg" alt="логотип Habbit App"/>
-            <nav class="menu">
-                
-            </nav>
-        </div>
-        <div class="content"></div>
+      <div class="panel">
+        <image class="logo" src="./assets/svg/Logomark.svg" alt="логотип Habbit App" />
+        <nav class="menu">
+          <div class="menu__list">
+            <button class="menu__item menu__item_active">
+              <image src="./assets/svg/Dumbbell.svg" alt="спортивные занятия" />
+            </button>
+            <button class="menu__item">
+              <image src="./assets/svg/Water.svg" alt="спортивные занятия" />
+            </button>
+            <button class="menu__item">
+              <image src="./assets/svg/eat.svg" alt="спортивные занятия" />
+            </button>
+          </div>
+          <button class="menu__add">
+            <image class="" src="./assets/svg/Add.svg" alt="добавитьь привычку" />
+          </button>
+        </nav>
+      </div>
+
+      <div class="content">
+        <header>
+          <h1>Отжимания</h1>
+          <div class="progress">
+            <div class="progress__text">
+              <div class="progress__name">Прогресс</div>
+              <div class="progress__percent">80%</div>
+            </div>
+            <div class="progress__bar">
+              <div class="progress__cover-bar"></div>
+            </div>
+          </div>
+        </header>
+
+        <main>
+          <div>
+            <div class="habbit">
+              <div class="habbit__day">День 1</div>
+              <div class="habbit__comment">Первый подход всегда даётся тяжело</div>
+              <button class="habbit__bin">
+                <img src="./assets/svg/delete.svg" alt="удалить день" />
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
