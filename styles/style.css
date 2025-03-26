@@ -30,6 +30,7 @@ body {
   margin-bottom: 50px;
   width: 66px;
   height: 71px;
+  cursor: pointer;
 }
 .menu {
   display: flex;
@@ -50,6 +51,7 @@ body {
   border-radius: 14px;
   background: #ffffff;
   border: none;
+  cursor: pointer;
 }
 
 .menu__item:hover {
@@ -210,7 +212,7 @@ input::placeholder {
   left: 45px;
 }
 
-.habbit__done{
+.habbit__done {
   background: #edecfe;
   border: none;
   border-radius: 9px;
@@ -224,5 +226,5 @@ input::placeholder {
 }
 
 .habbit__done:hover {
-  background: #edecfe;
+  /* background: #edecfe; */
 }
