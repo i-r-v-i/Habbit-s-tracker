@@ -2,7 +2,16 @@ let habbits = [];
 const HABBIT_KEY = "HABBIT_KEY";
 
 const page = {
-    menu: document.querySelector('.menu__list')
+    menu: document.querySelector('.menu__list'),
+    header: {
+      title: document.querySelector('h1'),
+      progressPercent: document.querySelector('.progress__percent'),
+      progressCoverBar: document.querySelector('.progress__cover-bar')
+    },
+    content: {
+      habbitList: document.querySelector('.habbitList'),
+      nextDay: document.querySelector('.habbit__day')
+    },
 }
 
 function loadData() {
@@ -19,9 +28,6 @@ function saveData() {
 
 // render
 function rerenderMenu(activeHabbit) {
-  if (!activeHabbit) {
-    return;
-  }
   for (const habbit of habbits) {
     const existed = document.querySelector(`[menu-habbit-id="${habbit.id}"]`);
     if (!existed) {
@@ -44,9 +50,43 @@ function rerenderMenu(activeHabbit) {
   }
 }
 
+function rerenderHead (activeHabbit) {
+  page.header.title.innerText = activeHabbit.name;
+  const progress = activeHabbit.days.length / activeHabbit.target > 1
+  ? 100
+  :  activeHabbit.days.length / activeHabbit.target * 100;
+  page.header.progressPercent.innerText = progress.toFixed(0) + '%';;
+  page.header.progressCoverBar.setAttribute('style', `width: ${progress}%`);
+}
+
+function rerenderContent (activeHabbit) {
+  if(activeHabbit.days.length) {
+    page.content.habbitList.innerHTML = '';
+    
+    for(const index in activeHabbit.days) {
+      const element = document.createElement('div');
+      element.classList.add('habbit');
+      element.innerHTML = `<div class="habbit__day">День ${+index + 1}</div>
+              <div class="habbit__comment">${activeHabbit.days[index].comment}</div>
+              <button class="habbit__bin">
+                <img src="./assets/svg/delete.svg" alt="удалить день ${+index + 1}" />
+              </button>`;
+      page.content.habbitList.appendChild(element);
+    }
+    page.content.nextDay.innerText = `День ${activeHabbit.days.length + 1}`;
+  }
+
+}
+
 function rerender(activeHabbitId) {
+
   const activeHabbit = habbits.find((habbit) => (habbit.id === activeHabbitId));
+  if (!activeHabbit) {
+    return;
+  }
   rerenderMenu(activeHabbit);
+  rerenderHead(activeHabbit);
+  rerenderContent(activeHabbit);
 }
 
 (() => {
