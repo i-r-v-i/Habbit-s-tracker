@@ -134,7 +134,7 @@ h1 {
 
 .progress__cover-bar {
   position: absolute;
-  transition: all .5s;
+  transition: all 0.5s;
   width: 80%;
   height: 5px;
   border-radius: 4px;
@@ -210,6 +210,7 @@ input.error {
   position: relative;
 }
 .habbit__input {
+  font-family: "Comfortaa", sans-serif;
   padding-left: 45px;
 }
 .icon {
@@ -225,7 +226,7 @@ input.error {
   font-weight: 500;
   font-size: 13px;
   line-height: 100%;
-  color: #5051F9;
+  color: #5051f9;
   padding: 14px 30px;
   cursor: pointer;
   font-family: Comfortaa;
@@ -233,4 +234,107 @@ input.error {
 
 .habbit__done:hover {
   /* background: #edecfe; */
+}
+
+.cover {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover__hidden {
+  /* display: none; */
+}
+
+.popup {
+  position: relative;
+  background: rgba(255, 255, 255, 1);
+  max-width: 600px;
+  width: 424px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.popup__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 100%;
+  margin-bottom: 19px;
+
+}
+
+.icon-label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  margin-bottom: 10px;
+}
+
+.icon-list {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.popup__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 17px;
+}
+
+.popup__form .input-list {
+  width: 100%;
+}
+
+.popup__icon {
+  width: 46px;
+  height: 45px;
+  box-shadow: 0px 8px 14px 0px #3e6be01f;
+  border-radius: 14px;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.popup__icon:hover {
+  background: #6a6afb;
+}
+
+.popup__icon:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.popup__icon_active {
+  background: #5051f9;
+}
+
+.popup__icon_active img {
+  filter: brightness(0) invert(1);
 }
