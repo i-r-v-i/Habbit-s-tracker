@@ -14,36 +14,44 @@ const page = {
     habbitList: document.querySelector(".habbitList"),
     nextDay: document.querySelector(".habbit__day"),
   },
+  popup: {
+    cover: document.querySelector(".cover"),
+    addButton: document.querySelector(".menu__add"),
+    closeButton: document.querySelector(".popup__close"),
+  
+  }
 };
 
+// utils
 function loadData() {
-  const habbitString = localStorage.getItem("HABBIT_KEY");
-  const habbitArray = JSON.parse(habbitString);
+  const habbitString = localStorage.getItem(HABBIT_KEY); // получаем строку с данными из хранилища
+  const habbitArray = JSON.parse(habbitString); // парсим данные - превращаем строку в массив
   if (Array.isArray(habbitArray)) {
     habbits = habbitArray;
-  }
+  } // проверяем, если пришел массив, то сохраняем его в состояние нашего приложения
 }
 
 function saveData() {
   localStorage.setItem(HABBIT_KEY, JSON.stringify(habbits));
-}
+} // сохраняем в локалсторидж с ключем "HABBIT_KEY" в виде строки массив привычек.
 
 // render
 function rerenderMenu(activeHabbit) {
   for (const habbit of habbits) {
     const existed = document.querySelector(`[menu-habbit-id="${habbit.id}"]`);
-    if (!existed) {
+    if (!existed) { // если такого нет, то создаем разметку
       const element = document.createElement("button");
       element.setAttribute("menu-habbit-id", habbit.id);
       element.classList.add("menu__item");
       element.addEventListener("click", () => rerender(habbit.id));
-      element.innerHTML = `<image src="./assets/svg/${habbit.icon}.svg" alt="${habbit.name}" />`;
+      element.innerHTML = `<img src="./assets/svg/${habbit.icon}.svg" alt="${habbit.name}" />`;
       if (activeHabbit.id === habbit.id) {
         element.classList.add("menu__item_active");
       }
       page.menu.appendChild(element);
       continue;
     }
+    // делаем присвоение класса активного айтема меню
     if (activeHabbit.id === habbit.id) {
       existed.classList.add("menu__item_active");
     } else {
@@ -135,7 +143,25 @@ function deleteDay(index) {
   saveData(); // сохраняем в "стейт" то, что ввели в инпут
 }
 
+function togglePopup () {
+   if( page.popup.cover.classList.contains('cover_hidden')) {
+    page.popup.cover.classList.remove('cover_hidden');
+} else {
+    page.popup.cover.classList.add('cover_hidden');
+}
+}
+
+// function addHabbit () {
+//    page.popup.addButton.addEventListener("click", togglePopup);
+//    page.popup.closeButton.removeEventListener("click", togglePopup);
+// }
+// function closePopup () {
+//   page.popup.closeButton.addEventListener("click", togglePopup);
+//   page.popup.addButton.removeEventListener("click", togglePopup);
+// }
+
+
 (() => {
-  loadData();
-  rerender(habbits[0].id);
+  loadData(); // при загрузке приложения один раз вызываем функцию загрузки с помощью анонимной функции
+  rerender(habbits[0].id); // 
 })();

@@ -248,8 +248,8 @@ input.error {
   align-items: center;
 }
 
-.cover__hidden {
-  /* display: none; */
+.cover_hidden {
+  display: none;
 }
 
 .popup {

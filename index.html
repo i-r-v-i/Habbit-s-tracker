@@ -20,16 +20,16 @@
         <nav class="menu">
           <div class="menu__list">
             <!-- <button class="menu__item menu__item_active">
-              <image src="./assets/svg/Dumbbell.svg" alt="спортивные занятия" />
+              <img src="./assets/svg/Dumbbell.svg" alt="спортивные занятия" />
             </button>
             <button class="menu__item">
-              <image src="./assets/svg/Water.svg" alt="вода" />
+              <img src="./assets/svg/Water.svg" alt="вода" />
             </button>
             <button class="menu__item">
-              <image src="./assets/svg/eat.svg" alt="еда" />
+              <img src="./assets/svg/eat.svg" alt="еда" />
             </button> -->
           </div>
-          <button class="menu__add">
+          <button class="menu__add" onclick="togglePopup()">
             <img class="" src="./assets/svg/Add.svg" alt="добавить привычку" />
           </button>
         </nav>
@@ -100,11 +100,12 @@
           <form class="popup__form">
              <div class="input-list">
             <input type="text" name="name" placeholder="Название" />
+            <input type="text" name="icon" hidden>
             <input type="number" name="target" placeholder="Цель" />
              </div>
             <button type="submit" class="habbit__done">Добавить</button>
           </form>
-          <button class="popup__close">
+          <button class="popup__close" onclick="togglePopup ()">
             <img src="./assets/svg/close.svg" alt="закрыть попап">
           </button>
         </div>
