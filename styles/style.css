@@ -35,7 +35,6 @@ body {
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 25px;
   align-items: center;
 }
 .menu__list {
@@ -52,6 +51,7 @@ body {
   background: #ffffff;
   border: none;
   cursor: pointer;
+  margin-bottom: 25px;
 }
 
 .menu__item:hover {
@@ -98,6 +98,7 @@ h1 {
   font-size: 30px;
   line-height: 100%;
   letter-spacing: 0%;
+  margin-top: 110px;
 }
 .progress {
   display: flex;
@@ -135,7 +136,7 @@ h1 {
 .progress__cover-bar {
   position: absolute;
   transition: all 0.5s;
-  width: 80%;
+  width: 1%;
   height: 5px;
   border-radius: 4px;
   background: #5051f9;
@@ -233,7 +234,7 @@ input.error {
 }
 
 .habbit__done:hover {
-  /* background: #edecfe; */
+  background: #edecfe;
 }
 
 .cover {
