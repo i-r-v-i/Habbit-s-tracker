@@ -86,21 +86,20 @@
           <h2>Новая привычка</h2>
           <div class="icon-label">Иконка</div>
           <ul class="icon-list">
-            <button class="popup__icon">
+            <button class="popup__icon popup__icon_active" onclick="setIcon(this, 'sport')">
               <img src="./assets/svg/sport.svg" alt="спорт" />
             </button>
-            <button class="popup__icon">
+            <button class="popup__icon" onclick="setIcon(this, 'water')">
               <img src="./assets/svg/water.svg" alt="вода" />
             </button>
-            <button class="popup__icon">
+            <button class="popup__icon" onclick="setIcon(this, 'food')">
               <img src="./assets/svg/food.svg" alt="еда" />
             </button>
           </ul>
-       
-          <form class="popup__form">
+          <form class="popup__form" onsubmit="addHabbit(event)">
              <div class="input-list">
             <input type="text" name="name" placeholder="Название" />
-            <input type="text" name="icon" hidden>
+            <input type="text" name="icon" value="sport" hidden>
             <input type="number" name="target" placeholder="Цель" />
              </div>
             <button type="submit" class="habbit__done">Добавить</button>

@@ -16,10 +16,10 @@ const page = {
   },
   popup: {
     cover: document.querySelector(".cover"),
-    addButton: document.querySelector(".menu__add"),
-    closeButton: document.querySelector(".popup__close"),
-  
-  }
+    iconField: document.querySelector('.popup__form input[name="icon"]'),
+    // addButton: document.querySelector(".menu__add"),
+    // closeButton: document.querySelector(".popup__close"),
+  },
 };
 
 // utils
@@ -35,11 +35,42 @@ function saveData() {
   localStorage.setItem(HABBIT_KEY, JSON.stringify(habbits));
 } // сохраняем в локалсторидж с ключем "HABBIT_KEY" в виде строки массив привычек.
 
+function getValidateFormData(form, inputs) { // передаем форму и поля инпутов
+  const dataForm = new FormData(form);
+  const res = {}; // в этот объект потом сложим результаты
+  for (const input of inputs) {
+    const inputValue = dataForm.get(input); // получаем значение инпута с указанным именем
+    form[input].classList.remove("error"); // для очистки ошибки, если сначала не ввели в инпут и получили класс ошибки, а потом исправились и заполнили поле
+    if (!inputValue) {
+      form[input].classList.add("error"); // если поле не заполнено, добавляем класс ошибки для инпута именно в этой форме с именем 'comment' (так искать удобнее, чем по квериселектору, т к в противном случае поиск будет глоюальным и может найти не то)
+    }
+    res[input] = inputValue;
+  }
+  let isValid = true;
+  for (const input of inputs) {
+    if(!res[input]) {
+      isValid = false;
+    }
+  }
+  if(!isValid) {
+    return;
+  }
+  return res;
+}
+
+function resetForm (form, inputs) {
+  for (const input of inputs) {
+    form[input].value = '';
+  }
+}
+
+
 // render
 function rerenderMenu(activeHabbit) {
   for (const habbit of habbits) {
     const existed = document.querySelector(`[menu-habbit-id="${habbit.id}"]`);
-    if (!existed) { // если такого нет, то создаем разметку
+    if (!existed) {
+      // если такого нет, то создаем разметку
       const element = document.createElement("button");
       element.setAttribute("menu-habbit-id", habbit.id);
       element.classList.add("menu__item");
@@ -103,26 +134,24 @@ function rerender(activeHabbitId) {
 function addDays(event) {
   event.preventDefault();
   const form = event.target;
-  form["comment"].classList.remove("error"); // для очистки ошибки, если сначала не ввели в инпут и получили класс ошибки, а потом исправились и заполнили поле
-  const dataForm = new FormData(form);
-  const comment = dataForm.get("comment"); // получаем значение инпута с указанным именем
-  if (!comment) {
-    form["comment"].classList.add("error"); // если поле не заполнено, добавляем класс ошибки для инпута именно в этой форме с именем 'comment' (так искать удобнее, чем по квериселектору, т к в противном случае поиск будет глоюальным и может найти не то)
+  const field = ['comment'];
+  const data = getValidateFormData(form, field);
+  if(!data) {
+    return;
   }
-
   // модифицируем массив привычек
   habbits = habbits.map((habbit) => {
     // если ???????????????????????????????????? добавляем в массив комментариев по дням новый
     if (habbit.id === globalActiveHabbitId) {
       return {
         ...habbit,
-        days: habbit.days.concat([{ comment }]),
+        days: habbit.days.concat([{ comment: data.comment }]),
       };
     }
     return habbit;
   });
 
-  form["comment"].value = ""; // очищаем инпут после сабмита
+  resetForm(form, field) // очищаем инпут после сабмита
   rerender(globalActiveHabbitId); // делаем новый рендер (так как мы на ваниле)
   saveData(); // сохраняем в "стейт" то, что ввели в инпут
 }
@@ -143,25 +172,48 @@ function deleteDay(index) {
   saveData(); // сохраняем в "стейт" то, что ввели в инпут
 }
 
-function togglePopup () {
-   if( page.popup.cover.classList.contains('cover_hidden')) {
-    page.popup.cover.classList.remove('cover_hidden');
-} else {
-    page.popup.cover.classList.add('cover_hidden');
-}
+function togglePopup() {
+  if (page.popup.cover.classList.contains("cover_hidden")) {
+    page.popup.cover.classList.remove("cover_hidden");
+  } else {
+    page.popup.cover.classList.add("cover_hidden");
+  }
 }
 
-// function addHabbit () {
-//    page.popup.addButton.addEventListener("click", togglePopup);
-//    page.popup.closeButton.removeEventListener("click", togglePopup);
-// }
-// function closePopup () {
-//   page.popup.closeButton.addEventListener("click", togglePopup);
-//   page.popup.addButton.removeEventListener("click", togglePopup);
-// }
+// работа с привычками
+function setIcon(context, icon) {
+  page.popup.iconField.value = icon;
+  const activeIcon = document.querySelector(".popup__icon.popup__icon_active");
+  activeIcon.classList.remove("popup__icon_active");
+  context.classList.add("popup__icon_active");
+}
+
+function addHabbit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const fields = ['name', 'icon', 'target'];
+  const data = getValidateFormData(form, fields);
+  if(!data) {
+    return;
+  }
+
+  const maxID = habbits.reduce((acc, habbit) => acc > habbit.id ? acc : habbit.id, 0)
+
+  habbits.push({
+    id: maxID + 1,
+    name: data.name,
+    target: data.target,
+    icon: data.icon,
+    days:[]
+  })
+  resetForm(form, fields);
+  togglePopup();
+  saveData();
+  rerender(maxID + 1);
+}
 
 
 (() => {
   loadData(); // при загрузке приложения один раз вызываем функцию загрузки с помощью анонимной функции
-  rerender(habbits[0].id); // 
+  rerender(habbits[0].id); // по умолчанию пока делаем активной первую привычку
 })();
