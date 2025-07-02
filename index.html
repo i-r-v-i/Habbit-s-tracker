@@ -38,15 +38,17 @@
       <div class="content">
         <header>
           <h1>&#128072; Добавь свою первую привычку! &#127939;</h1>
-          <!-- <div class="progress">
-            <div class="progress__text">
-              <div class="progress__name">Прогресс</div>
-              <div class="progress__percent">%</div>
-            </div>
-            <div class="progress__bar">
-              <div class="progress__cover-bar"></div>
-            </div>
-          </div> -->
+          <div class="progress-container">
+            <!-- <div class="progress">
+              <div class="progress__text">
+                <div class="progress__name">Прогресс</div>
+                <div class="progress__percent">%</div>
+              </div>
+              <div class="progress__bar">
+                <div class="progress__cover-bar"></div>
+              </div>
+            </div> -->
+          </div>
         </header>
 
         <main>
@@ -86,7 +88,10 @@
           <h2>Новая привычка</h2>
           <div class="icon-label">Иконка</div>
           <ul class="icon-list">
-            <button class="popup__icon popup__icon_active" onclick="setIcon(this, 'sport')">
+            <button
+              class="popup__icon popup__icon_active"
+              onclick="setIcon(this, 'sport')"
+            >
               <img src="./assets/svg/sport.svg" alt="спорт" />
             </button>
             <button class="popup__icon" onclick="setIcon(this, 'water')">
@@ -97,15 +102,15 @@
             </button>
           </ul>
           <form class="popup__form" onsubmit="addHabbit(event)">
-             <div class="input-list">
-            <input type="text" name="name" placeholder="Название" />
-            <input type="text" name="icon" value="sport" hidden>
-            <input type="number" name="target" placeholder="Цель" />
-             </div>
+            <div class="input-list">
+              <input type="text" name="name" placeholder="Название" />
+              <input type="text" name="icon" value="sport" hidden />
+              <input type="number" name="target" placeholder="Цель" />
+            </div>
             <button type="submit" class="habbit__done">Добавить</button>
           </form>
           <button class="popup__close" onclick="togglePopup ()">
-            <img src="./assets/svg/close.svg" alt="закрыть попап">
+            <img src="./assets/svg/close.svg" alt="закрыть попап" />
           </button>
         </div>
       </div>

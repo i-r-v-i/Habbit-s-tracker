@@ -93,12 +93,28 @@ function rerenderMenu(activeHabbit) {
 
 function rerenderHead(activeHabbit) {
   page.header.title.innerText = activeHabbit.name;
-  const progress =
-    activeHabbit.days.length / activeHabbit.target > 1
-      ? 100
-      : (activeHabbit.days.length / activeHabbit.target) * 100;
-  page.header.progressPercent.innerText = progress.toFixed(0) + "%";
-  page.header.progressCoverBar.setAttribute("style", `width: ${progress}%`);
+    const progressData =
+      activeHabbit.days.length / activeHabbit.target > 1
+        ? 100
+        : (activeHabbit.days.length / activeHabbit.target) * 100;
+       
+        if(!activeHabbit.days.length) {
+        const progressElement = document.createElement("div");
+        progressElement.classList.add("progress");
+        progressElement.innerHTML = `<div class="progress">
+                  <div class="progress__text">
+                    <div class="progress__name">Прогресс</div>
+                    <div class="progress__percent">${progressData.toFixed(0) + "%"}</div>
+                  </div>
+                  <div class="progress__bar">
+                    <div class="progress__cover-bar"></div>
+                  </div>
+                 </div> `;
+        document.querySelector('.progress-container').appendChild(progressElement);    
+        } else {
+          progressElement.innerHTML = '';
+          page.header.progressPercent.innerText = progressData.toFixed(0) + "%";
+        }
 }
 
 function rerenderContent(activeHabbit) {

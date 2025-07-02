@@ -40,7 +40,7 @@ body {
 .menu__list {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  /* gap: 25px; */
 }
 
 .menu__item {
