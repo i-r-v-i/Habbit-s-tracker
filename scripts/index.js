@@ -7,18 +7,17 @@ const page = {
   menu: document.querySelector(".menu__list"),
   header: {
     title: document.querySelector("h1"),
-    progressPercent: document.querySelector(".progress__percent"),
-    progressCoverBar: document.querySelector(".progress__cover-bar"),
+    progressContainer: document.querySelector(".progress-container"),
+    // progressCoverBar: document.querySelector(".progress__cover-bar"),
   },
   content: {
     habbitList: document.querySelector(".habbitList"),
+    dayForm: document.querySelector(".habbit__form-container"),
     nextDay: document.querySelector(".habbit__day"),
   },
   popup: {
     cover: document.querySelector(".cover"),
     iconField: document.querySelector('.popup__form input[name="icon"]'),
-    // addButton: document.querySelector(".menu__add"),
-    // closeButton: document.querySelector(".popup__close"),
   },
 };
 
@@ -110,16 +109,20 @@ function rerenderHead(activeHabbit) {
                     <div class="progress__cover-bar"></div>
                   </div>
                  </div> `;
-        document.querySelector('.progress-container').appendChild(progressElement);    
+        page.header.progressContainer.appendChild(progressElement);    
+        // page.header.progressPercent.innerText = progressData.toFixed(0) + "%";
+        // page.header.progressCoverBar.setAttribute("style", `width: ${progressData}%`);
         } else {
-          progressElement.innerHTML = '';
-          page.header.progressPercent.innerText = progressData.toFixed(0) + "%";
+          // page.header.progressContainer.innerHTML = '';
+         
         }
 }
 
 function rerenderContent(activeHabbit) {
+  renderDaysForm(activeHabbit);
   if (activeHabbit.days.length) {
     page.content.habbitList.innerHTML = "";
+    page.header.progressContainer.innerHTML = '';
 
     for (const index in activeHabbit.days) {
       const element = document.createElement("div");
@@ -131,9 +134,44 @@ function rerenderContent(activeHabbit) {
               </button>`;
       page.content.habbitList.appendChild(element);
     }
-    page.content.nextDay.innerText = `День ${activeHabbit.days.length + 1}`;
+    
+    
   }
+  
 }
+
+function renderDaysForm (activeHabbit) {
+  page.content.dayForm.innerHTML = '';
+  // if(activeHabbit.days.length) {
+
+  // }
+  
+  const formElement = document.createElement("div");
+  formElement.classList.add("habbit");
+  formElement.innerHTML = `<div class ="habbit">
+            <div class="habbit__day">${activeHabbit.days.length ? `День ${activeHabbit?.days.length + 1}` : 'Начнем!' }</div>
+            <form class="habbit__form" onsubmit="addDays(event)">
+              <input
+                class="habbit__input"
+                type="text"
+                name="comment"
+                id=""
+                placeholder="Комментарий"
+              />
+              <img
+                class="icon"
+                src="/assets/svg/comment.svg"
+                alt="иконка комментария"
+              />
+              <button class="habbit__done" type="submit">Готово</button>
+            </form>
+          </div>`;
+          page.content.dayForm.appendChild(formElement);
+          
+          
+          // page.content.nextDay.innerText = `День ${activeHabbit.days.length + 1}`;
+}
+
 
 function rerender(activeHabbitId) {
   globalActiveHabbitId = activeHabbitId; // запоминаем id активной привычки глобально, чтобы потом использовать данные привычек из нее
@@ -141,7 +179,7 @@ function rerender(activeHabbitId) {
   if (!activeHabbit) {
     return;
   }
-  document.location.replace(document.location.pathname + '#' + activeHabbitId); // изменение url при переходе на бдругоую привычку
+  document.location.replace(document.location.pathname + '#' + activeHabbitId); // изменение url при переходе на другоую привычку
   rerenderMenu(activeHabbit); // рендерим
   rerenderHead(activeHabbit);
   rerenderContent(activeHabbit);
