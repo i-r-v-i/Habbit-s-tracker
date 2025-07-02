@@ -120,7 +120,6 @@ function rerenderHead(activeHabbit) {
 
 function rerenderContent(activeHabbit) {
   renderDaysForm(activeHabbit);
-  if (activeHabbit.days.length) {
     page.content.habbitList.innerHTML = "";
     page.header.progressContainer.innerHTML = '';
 
@@ -133,18 +132,12 @@ function rerenderContent(activeHabbit) {
                 <img src="./assets/svg/delete.svg" alt="удалить день ${+index + 1}" />
               </button>`;
       page.content.habbitList.appendChild(element);
-    }
-    
-    
   }
   
 }
 
 function renderDaysForm (activeHabbit) {
   page.content.dayForm.innerHTML = '';
-  // if(activeHabbit.days.length) {
-
-  // }
   
   const formElement = document.createElement("div");
   formElement.classList.add("habbit");
@@ -168,8 +161,6 @@ function renderDaysForm (activeHabbit) {
           </div>`;
           page.content.dayForm.appendChild(formElement);
           
-          
-          // page.content.nextDay.innerText = `День ${activeHabbit.days.length + 1}`;
 }
 
 
