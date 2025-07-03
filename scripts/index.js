@@ -141,8 +141,7 @@ function renderDaysForm (activeHabbit) {
   
   const formElement = document.createElement("div");
   formElement.classList.add("habbit");
-  formElement.innerHTML = `<div class ="habbit">
-            <div class="habbit__day">${activeHabbit.days.length ? `День ${activeHabbit?.days.length + 1}` : 'Начнем!' }</div>
+  formElement.innerHTML = `<div class="habbit__day">${activeHabbit.days.length ? `День ${activeHabbit?.days.length + 1}` : 'Начнем!' }</div>
             <form class="habbit__form" onsubmit="addDays(event)">
               <input
                 class="habbit__input"
@@ -157,8 +156,7 @@ function renderDaysForm (activeHabbit) {
                 alt="иконка комментария"
               />
               <button class="habbit__done" type="submit">Готово</button>
-            </form>
-          </div>`;
+            </form>`;
           page.content.dayForm.appendChild(formElement);
           
 }
