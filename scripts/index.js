@@ -114,7 +114,6 @@ function rerenderHead(activeHabbit) {
 function rerenderContent(activeHabbit) {
   renderDaysForm(activeHabbit);
   page.content.habbitList.innerHTML = "";
-  // page.header.progressContainer.innerHTML = "";
 
   for (const index in activeHabbit.days) {
     const element = document.createElement("div");
@@ -201,7 +200,6 @@ function deleteDay(index) {
         days: habbit.days,
       };
     }
-    console.log(habbit);
     return habbit;
   });
   rerender(globalActiveHabbitId); // делаем новый рендер (так как мы на ваниле)
