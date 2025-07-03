@@ -8,7 +8,6 @@ const page = {
   header: {
     title: document.querySelector("h1"),
     progressContainer: document.querySelector(".progress-container"),
-    // progressCoverBar: document.querySelector(".progress__cover-bar"),
   },
   content: {
     habbitList: document.querySelector(".habbitList"),
@@ -34,7 +33,8 @@ function saveData() {
   localStorage.setItem(HABBIT_KEY, JSON.stringify(habbits));
 } // сохраняем в локалсторидж с ключем "HABBIT_KEY" в виде строки массив привычек.
 
-function getValidateFormData(form, inputs) { // передаем форму и поля инпутов
+function getValidateFormData(form, inputs) {
+  // передаем форму и поля инпутов
   const dataForm = new FormData(form);
   const res = {}; // в этот объект потом сложим результаты
   for (const input of inputs) {
@@ -47,22 +47,21 @@ function getValidateFormData(form, inputs) { // передаем форму и �
   }
   let isValid = true;
   for (const input of inputs) {
-    if(!res[input]) {
+    if (!res[input]) {
       isValid = false;
     }
   }
-  if(!isValid) {
+  if (!isValid) {
     return;
   }
   return res;
 }
 
-function resetForm (form, inputs) {
+function resetForm(form, inputs) {
   for (const input of inputs) {
-    form[input].value = '';
+    form[input].value = "";
   }
 }
-
 
 // render
 function rerenderMenu(activeHabbit) {
@@ -92,56 +91,51 @@ function rerenderMenu(activeHabbit) {
 
 function rerenderHead(activeHabbit) {
   page.header.title.innerText = activeHabbit.name;
-    const progressData =
-      activeHabbit.days.length / activeHabbit.target > 1
-        ? 100
-        : (activeHabbit.days.length / activeHabbit.target) * 100;
-       
-        if(!activeHabbit.days.length) {
-        const progressElement = document.createElement("div");
-        progressElement.classList.add("progress");
-        progressElement.innerHTML = `<div class="progress">
-                  <div class="progress__text">
+  page.header.progressContainer.innerHTML = '';
+  const progressData =
+    activeHabbit.days.length / activeHabbit.target > 1
+      ? 100
+      : (activeHabbit.days.length / activeHabbit.target) * 100;
+
+  const progressElement = document.createElement("div");
+  progressElement.classList.add("progress");
+  progressElement.innerHTML = `<div class="progress__text">
                     <div class="progress__name">Прогресс</div>
                     <div class="progress__percent">${progressData.toFixed(0) + "%"}</div>
                   </div>
                   <div class="progress__bar">
                     <div class="progress__cover-bar"></div>
-                  </div>
-                 </div> `;
-        page.header.progressContainer.appendChild(progressElement);    
-        // page.header.progressPercent.innerText = progressData.toFixed(0) + "%";
-        // page.header.progressCoverBar.setAttribute("style", `width: ${progressData}%`);
-        } else {
-          // page.header.progressContainer.innerHTML = '';
-         
-        }
+                  </div>`;
+
+  page.header.progressContainer.appendChild(progressElement);
+  document.querySelector('.progress__cover-bar').setAttribute("style", `width: ${progressData}%`);
 }
 
 function rerenderContent(activeHabbit) {
   renderDaysForm(activeHabbit);
-    page.content.habbitList.innerHTML = "";
-    page.header.progressContainer.innerHTML = '';
+  page.content.habbitList.innerHTML = "";
+  // page.header.progressContainer.innerHTML = "";
 
-    for (const index in activeHabbit.days) {
-      const element = document.createElement("div");
-      element.classList.add("habbit");
-      element.innerHTML = `<div class="habbit__day">День ${+index + 1}</div>
+  for (const index in activeHabbit.days) {
+    const element = document.createElement("div");
+    element.classList.add("habbit");
+    element.innerHTML = `<div class="habbit__day">День ${+index + 1}</div>
               <div class="habbit__comment">${activeHabbit.days[index].comment}</div>
               <button class="habbit__bin" onClick="deleteDay(${index})">
                 <img src="./assets/svg/delete.svg" alt="удалить день ${+index + 1}" />
               </button>`;
-      page.content.habbitList.appendChild(element);
+    page.content.habbitList.appendChild(element);
   }
-  
 }
 
-function renderDaysForm (activeHabbit) {
-  page.content.dayForm.innerHTML = '';
-  
+function renderDaysForm(activeHabbit) {
+  page.content.dayForm.innerHTML = "";
+
   const formElement = document.createElement("div");
   formElement.classList.add("habbit");
-  formElement.innerHTML = `<div class="habbit__day">${activeHabbit.days.length ? `День ${activeHabbit?.days.length + 1}` : 'Начнем!' }</div>
+  formElement.innerHTML = `<div class="habbit__day">${
+    activeHabbit.days.length ? `День ${activeHabbit?.days.length + 1}` : "Начнем!"
+  }</div>
             <form class="habbit__form" onsubmit="addDays(event)">
               <input
                 class="habbit__input"
@@ -157,10 +151,8 @@ function renderDaysForm (activeHabbit) {
               />
               <button class="habbit__done" type="submit">Готово</button>
             </form>`;
-          page.content.dayForm.appendChild(formElement);
-          
+  page.content.dayForm.appendChild(formElement);
 }
-
 
 function rerender(activeHabbitId) {
   globalActiveHabbitId = activeHabbitId; // запоминаем id активной привычки глобально, чтобы потом использовать данные привычек из нее
@@ -168,7 +160,7 @@ function rerender(activeHabbitId) {
   if (!activeHabbit) {
     return;
   }
-  document.location.replace(document.location.pathname + '#' + activeHabbitId); // изменение url при переходе на другоую привычку
+  document.location.replace(document.location.pathname + "#" + activeHabbitId); // изменение url при переходе на другоую привычку
   rerenderMenu(activeHabbit); // рендерим
   rerenderHead(activeHabbit);
   rerenderContent(activeHabbit);
@@ -178,14 +170,14 @@ function rerender(activeHabbitId) {
 function addDays(event) {
   event.preventDefault();
   const form = event.target;
-  const field = ['comment'];
+  const field = ["comment"];
   const data = getValidateFormData(form, field);
-  if(!data) {
+  if (!data) {
     return;
   }
   // модифицируем массив привычек
   habbits = habbits.map((habbit) => {
-    // если ???????????????????????????????????? добавляем в массив комментариев по дням новый
+    // если находимся на активной привычке, добавляем новый коммент в массив комментариев дней
     if (habbit.id === globalActiveHabbitId) {
       return {
         ...habbit,
@@ -195,7 +187,7 @@ function addDays(event) {
     return habbit;
   });
 
-  resetForm(form, field) // очищаем инпут после сабмита
+  resetForm(form, field); // очищаем инпут после сабмита
   rerender(globalActiveHabbitId); // делаем новый рендер (так как мы на ваниле)
   saveData(); // сохраняем в "стейт" то, что ввели в инпут
 }
@@ -235,37 +227,35 @@ function setIcon(context, icon) {
 function addHabbit(event) {
   event.preventDefault();
   const form = event.target;
-  const fields = ['name', 'icon', 'target'];
+  const fields = ["name", "icon", "target"];
   const data = getValidateFormData(form, fields);
-  if(!data) {
+  if (!data) {
     return;
   }
 
-  const maxID = habbits.reduce((acc, habbit) => acc > habbit.id ? acc : habbit.id, 0)
+  const maxID = habbits.reduce((acc, habbit) => (acc > habbit.id ? acc : habbit.id), 0);
 
   habbits.push({
     id: maxID + 1,
     name: data.name,
     target: data.target,
     icon: data.icon,
-    days:[]
-  })
+    days: [],
+  });
   resetForm(form, fields);
   togglePopup();
   saveData();
   rerender(maxID + 1);
 }
 
-
 (() => {
   loadData(); // при загрузке приложения один раз вызываем функцию загрузки с помощью анонимной функции
 
- const hashId = Number(document.location.hash.replace('#', ''));
- const urlHabbit =habbits.find(habbit => habbit.id == hashId)
-  if(urlHabbit) {
+  const hashId = Number(document.location.hash.replace("#", ""));
+  const urlHabbit = habbits.find((habbit) => habbit.id == hashId);
+  if (urlHabbit) {
     rerender(urlHabbit.id);
   } else {
     rerender(habbits[0].id); // по умолчанию пока делаем активной первую привычку
   }
-    
 })();
