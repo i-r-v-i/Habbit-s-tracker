@@ -91,7 +91,7 @@ function rerenderMenu(activeHabbit) {
 
 function rerenderHead(activeHabbit) {
   page.header.title.innerText = activeHabbit.name;
-  page.header.progressContainer.innerHTML = '';
+  page.header.progressContainer.innerHTML = "";
   const progressData =
     activeHabbit.days.length / activeHabbit.target > 1
       ? 100
@@ -108,7 +108,10 @@ function rerenderHead(activeHabbit) {
                   </div>`;
 
   page.header.progressContainer.appendChild(progressElement);
-  document.querySelector('.progress__cover-bar').setAttribute("style", `width: ${progressData}%`);
+  document
+    .querySelector(".progress__cover-bar")
+    .setAttribute("style", `width: ${progressData}%`);
+    getGoal(progressData);
 }
 
 function rerenderContent(activeHabbit) {
@@ -189,6 +192,15 @@ function addDays(event) {
   resetForm(form, field); // очищаем инпут после сабмита
   rerender(globalActiveHabbitId); // делаем новый рендер (так как мы на ваниле)
   saveData(); // сохраняем в "стейт" то, что ввели в инпут
+}
+function setGoalMessage() {
+  console.log("You have reached your goal! Good job!");
+}
+
+function getGoal(progress) {
+  if (progress === 100) {
+    setGoalMessage();
+  }
 }
 
 function deleteDay(index) {
