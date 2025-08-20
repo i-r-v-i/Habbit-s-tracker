@@ -143,8 +143,9 @@ function renderDaysForm(activeHabbit) {
                 class="habbit__input"
                 type="text"
                 name="comment"
-                id=""
+                id="newInput"
                 placeholder="Комментарий"
+                autofocus
               />
               <img
                 class="icon"
@@ -154,6 +155,8 @@ function renderDaysForm(activeHabbit) {
               <button class="habbit__done" type="submit">Готово</button>
             </form>`;
   page.content.dayForm.appendChild(formElement);
+  const input = document.getElementById('newInput');
+  input.focus();
 }
 
 function rerender(activeHabbitId) {
